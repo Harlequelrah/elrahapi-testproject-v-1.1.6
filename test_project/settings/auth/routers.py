@@ -1,8 +1,9 @@
 from elrahapi.router.router_provider import CustomRouterProvider
 from elrahapi.router.router_routes_name import DefaultRoutesName
 from elrahapi.router.relationship import Relationship
-from elrahapi.router.router_namespace import TypeRelation,RelationRoutesName
+from elrahapi.router.router_namespace import RELATION_RULES, TypeRelation,RelationRoutesName
 from .configs import authentication
+from ...app_one.cruds import myapp_crud as profile_crud
 from .cruds import (
     privilege_crud,
     role_crud,
@@ -13,7 +14,6 @@ from .cruds import (
 )
 user_role_relation: Relationship = Relationship(
     relationship_name="user_roles",
-    second_model_key_name="id",
     second_entity_crud=role_crud,
     relationship_crud=user_role_crud,
     type_relation=TypeRelation.MANY_TO_MANY_CLASS,
@@ -24,6 +24,12 @@ user_role_relation: Relationship = Relationship(
         RelationRoutesName.DELETE_RELATION,
     ],
 )
+profile_relation:Relationship=Relationship(
+    relationship_name="profile",
+    second_entity_crud=profile_crud,
+    type_relation=TypeRelation.ONE_TO_ONE,
+    default_public_relation_routes_name= RELATION_RULES[TypeRelation.ONE_TO_ONE]
+)
 user_router_provider = CustomRouterProvider(
     prefix="/users",
     tags=["users"],
@@ -31,7 +37,8 @@ user_router_provider = CustomRouterProvider(
     authentication=authentication,
     read_with_relations=True,
     relations=[
-        user_role_relation
+        user_role_relation,
+        profile_relation
         ]
 )
 
