@@ -7,6 +7,7 @@ from .settings.logger.router import logger_router
 from .settings.logger.model import Log
 from .settings.auth.configs import authentication_router
 from .settings.auth.routers import user_router, role_router,user_role_router,user_privilege_router,privilege_router,role_privilege_router
+from .app_two.router import app_myapp as post_router
 app = FastAPI()
 
 
@@ -16,6 +17,7 @@ async def hello():
 
 app.include_router(authentication_router)
 app.include_router(user_router)
+app.include_router(post_router)
 app.include_router(role_router)
 app.include_router(user_role_router)
 app.include_router(privilege_router)

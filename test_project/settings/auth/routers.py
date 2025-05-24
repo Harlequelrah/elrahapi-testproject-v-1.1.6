@@ -4,6 +4,7 @@ from elrahapi.router.relationship import Relationship
 from elrahapi.router.router_namespace import RELATION_RULES, TypeRelation,RelationRoutesName
 from .configs import authentication
 from ...app_one.cruds import myapp_crud as profile_crud
+from ...app_two.cruds import myapp_crud as post_crud
 from .cruds import (
     privilege_crud,
     role_crud,
@@ -30,6 +31,13 @@ profile_relation:Relationship=Relationship(
     type_relation=TypeRelation.ONE_TO_ONE,
     default_public_relation_routes_name= RELATION_RULES[TypeRelation.ONE_TO_ONE]
 )
+post_relation: Relationship = Relationship(
+    relationship_name="posts",
+    second_entity_crud=post_crud,
+    second_entity_fk_name="user_id",
+    type_relation=TypeRelation.ONE_TO_MANY,
+    default_public_relation_routes_name=RELATION_RULES[TypeRelation.ONE_TO_MANY],
+)
 user_router_provider = CustomRouterProvider(
     prefix="/users",
     tags=["users"],
@@ -37,8 +45,9 @@ user_router_provider = CustomRouterProvider(
     authentication=authentication,
     read_with_relations=True,
     relations=[
-        user_role_relation,
-        profile_relation
+        post_relation
+        # user_role_relation,
+        # profile_relation
         ]
 )
 

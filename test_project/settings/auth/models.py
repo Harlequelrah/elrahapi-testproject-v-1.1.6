@@ -20,6 +20,7 @@ class User( UserModel,Base):
     profile=relationship("Profile",back_populates="user",uselist=False)
     user_privileges = relationship("UserPrivilege", back_populates="user")
     user_roles=relationship("UserRole",back_populates="user")
+    posts=relationship("Post",back_populates="user")
 
 class Role(RoleModel,Base):
     __tablename__ = "roles"
