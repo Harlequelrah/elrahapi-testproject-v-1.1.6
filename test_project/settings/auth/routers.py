@@ -1,6 +1,7 @@
 from elrahapi.router.router_provider import CustomRouterProvider
 from elrahapi.router.router_routes_name import DefaultRoutesName
-
+from elrahapi.router.relationship import Relationship
+from elrahapi.router.router_namespace import TypeRelation,RelationRoutesName
 from .configs import authentication
 from .cruds import (
     privilege_crud,
@@ -10,14 +11,30 @@ from .cruds import (
     user_privilege_crud,
     user_role_crud,
 )
-
+user_role_relation: Relationship = Relationship(
+    relationship_name="user_roles",
+    second_model_key_name="id",
+    second_entity_crud=role_crud,
+    relationship_crud_models=user_role_crud.crud_models,
+    type_relation=TypeRelation.MANY_TO_MANY_CLASS,
+    relationship_key1_name="user_id",
+    relationship_key2_name="role_id",
+    default_public_relation_routes_name=[
+        RelationRoutesName.READ_ALL_BY_RELATION,
+        RelationRoutesName.DELETE_RELATION,
+    ],
+)
 user_router_provider = CustomRouterProvider(
     prefix="/users",
     tags=["users"],
     crud=user_crud,
     authentication=authentication,
     read_with_relations=True,
+    relations=[
+        user_role_relation
+        ]
 )
+
 
 user_privilege_router_provider = CustomRouterProvider(
     prefix="/users/privileges",
@@ -68,18 +85,7 @@ user_router = user_router_provider.get_mixed_router(
 )
 
 user_privilege_router = user_privilege_router_provider.get_protected_router()
-
 user_role_router = user_role_router_provider.get_protected_router()
-
 role_router = role_router_provider.get_protected_router()
-
 privilege_router = privilege_router_provider.get_protected_router()
-
-role_privilege_router = role_privilege_router_provider.get_protected_router()
-user_role_router = user_role_router_provider.get_protected_router()
-
-role_router = role_router_provider.get_protected_router()
-
-privilege_router = privilege_router_provider.get_protected_router()
-
 role_privilege_router = role_privilege_router_provider.get_protected_router()
