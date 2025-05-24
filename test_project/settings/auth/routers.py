@@ -15,7 +15,7 @@ user_role_relation: Relationship = Relationship(
     relationship_name="user_roles",
     second_model_key_name="id",
     second_entity_crud=role_crud,
-    relationship_crud_models=user_role_crud.crud_models,
+    relationship_crud=user_role_crud,
     type_relation=TypeRelation.MANY_TO_MANY_CLASS,
     relationship_key1_name="user_id",
     relationship_key2_name="role_id",
@@ -55,6 +55,7 @@ privilege_router_provider = CustomRouterProvider(
     tags=["privileges"],
     crud=privilege_crud,
     authentication=authentication,
+    privileges=["CAN_ADD_PRIVILEGE"]
 )
 
 role_privilege_router_provider = CustomRouterProvider(
