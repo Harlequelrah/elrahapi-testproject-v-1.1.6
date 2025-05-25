@@ -1,0 +1,30 @@
+from sqlalchemy import (
+    Boolean,
+    Column,
+    DECIMAL,
+    Integer,
+    String,
+    Text,
+    DateTime,
+    ForeignKey,
+    Table,
+)
+from ..settings.database import Base
+
+from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
+
+post_tag_table=Table(
+    "post_tag",
+    Base.metadata,
+    Column('post_id',Integer,ForeignKey('posts.id')),
+    Column('tag_id',Integer,ForeignKey('tags.id'))
+)
+
+class Tag(Base):
+    __tablename__ = 'tags'
+    id = Column(Integer, primary_key=True)
+    libelle=Column(String(30),nullable=False)
+    posts=relationship("Post",secondary=post_tag_table,back_populates="tags")
+
+metadata= Base.metadata

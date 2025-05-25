@@ -1,10 +1,15 @@
+from elrahapi.router.relationship import Relationship
+from elrahapi.router.router_namespace import (
+    RELATION_RULES,
+    RelationRoutesName,
+    TypeRelation,
+)
 from elrahapi.router.router_provider import CustomRouterProvider
 from elrahapi.router.router_routes_name import DefaultRoutesName
-from elrahapi.router.relationship import Relationship
-from elrahapi.router.router_namespace import RELATION_RULES, TypeRelation,RelationRoutesName
-from .configs import authentication
+
 from ...app_one.cruds import myapp_crud as profile_crud
 from ...app_two.cruds import myapp_crud as post_crud
+from .configs import authentication
 from .cruds import (
     privilege_crud,
     role_crud,
@@ -13,6 +18,7 @@ from .cruds import (
     user_privilege_crud,
     user_role_crud,
 )
+
 user_role_relation: Relationship = Relationship(
     relationship_name="user_roles",
     second_entity_crud=role_crud,
@@ -25,11 +31,11 @@ user_role_relation: Relationship = Relationship(
         RelationRoutesName.DELETE_RELATION,
     ],
 )
-profile_relation:Relationship=Relationship(
+profile_relation: Relationship = Relationship(
     relationship_name="profile",
     second_entity_crud=profile_crud,
     type_relation=TypeRelation.ONE_TO_ONE,
-    default_public_relation_routes_name= RELATION_RULES[TypeRelation.ONE_TO_ONE]
+    default_public_relation_routes_name=RELATION_RULES[TypeRelation.ONE_TO_ONE],
 )
 post_relation: Relationship = Relationship(
     relationship_name="posts",
@@ -48,7 +54,7 @@ user_router_provider = CustomRouterProvider(
         post_relation
         # user_role_relation,
         # profile_relation
-        ]
+    ],
 )
 
 
@@ -71,7 +77,7 @@ privilege_router_provider = CustomRouterProvider(
     tags=["privileges"],
     crud=privilege_crud,
     authentication=authentication,
-    privileges=["CAN_ADD_PRIVILEGE"]
+    privileges=["CAN_ADD_PRIVILEGE"],
 )
 
 role_privilege_router_provider = CustomRouterProvider(
@@ -106,3 +112,5 @@ user_role_router = user_role_router_provider.get_protected_router()
 role_router = role_router_provider.get_protected_router()
 privilege_router = privilege_router_provider.get_protected_router()
 role_privilege_router = role_privilege_router_provider.get_protected_router()
+
+

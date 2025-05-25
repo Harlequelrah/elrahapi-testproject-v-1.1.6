@@ -14,12 +14,13 @@ from ..settings.database import Base
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
-
+from ..app_three.models import post_tag_table
 class Post(Base):
     __tablename__ = 'posts'
     id = Column(Integer, primary_key=True)
     title=Column(String(30),nullable=True)
     user_id=Column(Integer,ForeignKey('users.id'))
     user=relationship("User",back_populates="posts")
+    tags=relationship("Tag",secondary=post_tag_table,back_populates="posts")
 
 metadata= Base.metadata
