@@ -12,6 +12,7 @@ from elrahapi.router.router_provider import CustomRouterProvider
 
 from ..app_three.cruds import myapp_crud as tag_crud
 from ..settings.auth.configs import authentication
+from ..settings.database import session_manager
 from ..settings.auth.cruds import user_crud
 from .models import post_tag_table
 from .cruds import myapp_crud
@@ -37,6 +38,7 @@ router_provider = CustomRouterProvider(
     prefix="/posts",
     tags=["posts"],
     crud=myapp_crud,
+    session_manager=session_manager,
     # authentication=authentication,
     read_with_relations=False,
     relations=[user_relation, tag_relation],

@@ -2,7 +2,6 @@ from elrahapi.crud.crud_models import CrudModels
 from .models import Profile  #remplacer par l'entité SQLAlchemy
 from .schemas import ProfileCreateModel, ProfileUpdateModel,ProfilePatchModel,ProfileReadModel,ProfileFullReadModel #remplacer par les modèles Pydantic
 from elrahapi.crud.crud_forgery import CrudForgery
-from ..settings.database import session_manager
 
 
 myapp_crud_models = CrudModels(
@@ -16,6 +15,5 @@ myapp_crud_models = CrudModels(
     FullReadModel=ProfileFullReadModel #Optionel
 )
 myapp_crud = CrudForgery(
-    crud_models=myapp_crud_models,
-    session_manager=session_manager
+    crud_models=myapp_crud_models
 )

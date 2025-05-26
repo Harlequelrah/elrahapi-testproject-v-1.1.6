@@ -6,7 +6,7 @@ from elrahapi.router.router_namespace import (
 )
 from elrahapi.router.router_provider import CustomRouterProvider
 from elrahapi.router.router_routes_name import DefaultRoutesName
-
+from ..database import session_manager
 from ...app_one.cruds import myapp_crud as profile_crud
 from ...app_two.cruds import myapp_crud as post_crud
 from .configs import authentication
@@ -50,6 +50,7 @@ user_router_provider = CustomRouterProvider(
     crud=user_crud,
     authentication=authentication,
     read_with_relations=True,
+    session_manager=session_manager,
     relations=[
         post_relation
         # user_role_relation,
@@ -63,6 +64,7 @@ user_privilege_router_provider = CustomRouterProvider(
     tags=["user_privileges"],
     crud=user_privilege_crud,
     authentication=authentication,
+    session_manager=session_manager,
 )
 
 role_router_provider = CustomRouterProvider(
@@ -70,6 +72,7 @@ role_router_provider = CustomRouterProvider(
     tags=["roles"],
     crud=role_crud,
     authentication=authentication,
+    session_manager=session_manager,
 )
 
 privilege_router_provider = CustomRouterProvider(
@@ -77,6 +80,7 @@ privilege_router_provider = CustomRouterProvider(
     tags=["privileges"],
     crud=privilege_crud,
     authentication=authentication,
+    session_manager=session_manager,
     privileges=["CAN_ADD_PRIVILEGE"],
 )
 
@@ -85,6 +89,7 @@ role_privilege_router_provider = CustomRouterProvider(
     tags=["role_privileges"],
     crud=role_privilege_crud,
     authentication=authentication,
+    session_manager=session_manager,
 )
 
 user_role_router_provider = CustomRouterProvider(
@@ -92,6 +97,7 @@ user_role_router_provider = CustomRouterProvider(
     tags=["user_roles"],
     crud=user_role_crud,
     authentication=authentication,
+    session_manager=session_manager,
 )
 
 
@@ -112,5 +118,3 @@ user_role_router = user_role_router_provider.get_protected_router()
 role_router = role_router_provider.get_protected_router()
 privilege_router = privilege_router_provider.get_protected_router()
 role_privilege_router = role_privilege_router_provider.get_protected_router()
-
-
