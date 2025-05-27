@@ -18,8 +18,8 @@ class User( UserModel,Base):
     __tablename__ = "users"
     profile_id=Column(Integer,ForeignKey('profiles.id'),unique=True)
     profile=relationship("Profile",back_populates="user",uselist=False)
-    user_privileges = relationship("UserPrivilege", back_populates="user")
-    user_roles=relationship("UserRole",back_populates="user")
+    user_privileges = relationship("UserPrivilege", back_populates="user",lazy="joined")
+    user_roles=relationship("UserRole",back_populates="user",lazy="joined")
     posts=relationship("Post",back_populates="user")
 
 class Role(RoleModel,Base):

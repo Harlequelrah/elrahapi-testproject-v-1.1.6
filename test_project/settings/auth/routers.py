@@ -52,9 +52,9 @@ user_router_provider = CustomRouterProvider(
     read_with_relations=True,
     session_manager=session_manager,
     relations=[
-        post_relation
-        # user_role_relation,
-        # profile_relation
+        post_relation,
+        user_role_relation,
+        profile_relation
     ],
 )
 
@@ -103,13 +103,16 @@ user_role_router_provider = CustomRouterProvider(
 
 # user_router = user_router_provider.get_protected_router()
 user_router = user_router_provider.get_mixed_router(
-    public_routes_name=[DefaultRoutesName.CREATE],
+    public_routes_name=[
+        DefaultRoutesName.CREATE,
+        DefaultRoutesName.READ_ONE,
+        ],
     protected_routes_name=[
         DefaultRoutesName.DELETE,
         DefaultRoutesName.UPDATE,
         DefaultRoutesName.PATCH,
         DefaultRoutesName.READ_ALL,
-        DefaultRoutesName.READ_ONE,
+
     ],
 )
 
