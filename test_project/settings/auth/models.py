@@ -51,7 +51,7 @@ class UserPrivilege(UserPrivilegeModel,Base):
 
 class UserRole(UserRoleModel,Base):
     __tablename__ = "user_roles"
-    user = relationship("User", back_populates="user_roles")
-    role = relationship("Role", back_populates="role_users")
+    user = relationship("User", back_populates="user_roles",lazy="joined")
+    role = relationship("Role", back_populates="role_users",lazy="joined")
 
 metadata= Base.metadata

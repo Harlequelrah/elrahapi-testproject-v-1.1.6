@@ -10,5 +10,6 @@ log_crud_models = CrudModels (
     ReadModel=LogReadModel
 )
 logCrud = CrudForgery(
-    crud_models=log_crud_models
+    crud_models=log_crud_models,
+    session_manager=session_manager
 )
