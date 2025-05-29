@@ -10,7 +10,8 @@ from ..secret import (
 )
 from .cruds import user_crud_models
 from ..database import session_manager
-
+from elrahapi.router.route_additional_config import AuthorizationConfig
+from elrahapi.router.router_routes_name import DefaultRoutesName
 authentication = AuthenticationManager(
     secret_key=SECRET_KEY,
     algorithm=ALGORITHM,

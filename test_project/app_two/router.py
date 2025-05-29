@@ -12,11 +12,10 @@ from elrahapi.router.router_provider import CustomRouterProvider
 
 from ..app_three.cruds import myapp_crud as tag_crud
 from ..settings.auth.configs import authentication
-from ..settings.database import session_manager
 from ..settings.auth.cruds import user_crud
 from .models import post_tag_table
 from .cruds import myapp_crud
-
+from ..settings.database import session_manager
 user_relation: Relationship = Relationship(
     relationship_name="user",
     second_entity_crud=user_crud,
@@ -46,5 +45,3 @@ router_provider = CustomRouterProvider(
 
 app_myapp = router_provider.get_custom_router(routes_name=[DefaultRoutesName.CREATE])
 # app_myapp = router_provider.get_protected_router()
-
-

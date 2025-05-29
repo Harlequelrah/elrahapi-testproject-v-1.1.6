@@ -6,9 +6,9 @@ from elrahapi.router.router_namespace import (
 )
 from elrahapi.router.router_provider import CustomRouterProvider
 from elrahapi.router.router_routes_name import DefaultRoutesName
-from ..database import session_manager
 from ...app_one.cruds import myapp_crud as profile_crud
 from ...app_two.cruds import myapp_crud as post_crud
+from ..database import session_manager
 from .configs import authentication
 from .cruds import (
     privilege_crud,
@@ -44,6 +44,7 @@ post_relation: Relationship = Relationship(
     type_relation=TypeRelation.ONE_TO_MANY,
     default_public_relation_routes_name=RELATION_RULES[TypeRelation.ONE_TO_MANY],
 )
+print(f"loging post_relation ,{post_relation.relationship_name,post_relation.second_entity_crud.entity_name,post_relation.second_entity_crud.CreatePydanticModel=} ")
 user_router_provider = CustomRouterProvider(
     prefix="/users",
     tags=["users"],

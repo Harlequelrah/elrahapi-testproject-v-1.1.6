@@ -15,11 +15,10 @@ router_provider = CustomRouterProvider(
     prefix="/items",
     tags=["item"],
     crud=myapp_crud,
-    session_manager=session_manager,
     # authentication=authentication,
+    session_manager=session_manager,
     read_with_relations=False,
 )
 
 app_myapp = router_provider.get_public_router()
 # app_myapp = router_provider.get_protected_router()
-
