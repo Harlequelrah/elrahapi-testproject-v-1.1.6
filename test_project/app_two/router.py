@@ -18,7 +18,6 @@ from .cruds import myapp_crud
 user_relation: Relationship = Relationship(
     relationship_name="user",
     second_entity_crud=user_crud,
-    second_entity_fk_name="user_id",
     type_relation=TypeRelation.MANY_TO_ONE,
     default_public_relation_routes_name=RELATION_RULES[TypeRelation.MANY_TO_ONE],
 )
