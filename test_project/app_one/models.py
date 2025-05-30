@@ -9,16 +9,17 @@ from sqlalchemy import (
     ForeignKey,
     Table,
 )
-from ..settings.database import Base
+from ..settings.database import database
 
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
 
-class Profile(Base):
+class Profile(database.base):
     __tablename__ = 'profiles'
     id = Column(Integer, primary_key=True)
     biography=Column(Text,nullable=False)
     user=relationship("User",back_populates="profile",uselist=False)
 
-metadata= Base.metadata
+metadata = database.base.metadata
+database.target_metadata = metadata

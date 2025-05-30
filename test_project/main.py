@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from elrahapi.middleware.error_middleware import ErrorHandlingMiddleware
 from elrahapi.middleware.log_middleware import LoggerMiddleware
 # from .myapp.router import app_myapp
-from .settings.models_metadata import database
+
+from .settings.database import database
 from .settings.logger.router import logger_router
 from .settings.logger.model import Log
 from .settings.auth.configs import authentication_router
@@ -11,7 +12,7 @@ from .app_two.router import app_myapp as post_router
 app = FastAPI()
 
 
-@app.get("/bakek")
+@app.get("/hello")
 async def hello():
     return {"message":"hello"}
 

@@ -13,7 +13,7 @@ from elrahapi.authorization.user_role.schemas import UserRoleCreateModel, UserRo
 from elrahapi.crud.crud_models import CrudModels
 from .models import User, UserPrivilege,Role,Privilege,RolePrivilege,UserRole
 from .schemas import UserCreateModel,UserUpdateModel,UserPatchModel,UserReadModel,UserFullReadModel
-from ..database import session_manager
+from ..database import database
 from elrahapi.crud.crud_forgery import CrudForgery
 
 user_crud_models = CrudModels(
@@ -85,23 +85,23 @@ user_role_crud_models = CrudModels(
 
 user_privilege_crud=CrudForgery(
     crud_models=user_privilege_crud_models,
-    session_manager=session_manager
+    session_manager=database.session_manager
 )
 
 
-user_crud = CrudForgery(crud_models=user_crud_models, session_manager=session_manager)
+user_crud = CrudForgery(crud_models=user_crud_models, session_manager=database.session_manager)
 
-role_crud = CrudForgery(crud_models=role_crud_models, session_manager=session_manager)
+role_crud = CrudForgery(crud_models=role_crud_models, session_manager=database.session_manager)
 
 privilege_crud = CrudForgery(
-    crud_models=privilege_crud_models, session_manager=session_manager
+    crud_models=privilege_crud_models, session_manager=database.session_manager
 )
 
 role_privilege_crud = CrudForgery(
-    crud_models=role_privilege_crud_models, session_manager=session_manager
+    crud_models=role_privilege_crud_models, session_manager=database.session_manager
 )
 
 
 user_role_crud = CrudForgery(
-    crud_models=user_role_crud_models, session_manager=session_manager
+    crud_models=user_role_crud_models, session_manager=database.session_manager
 )

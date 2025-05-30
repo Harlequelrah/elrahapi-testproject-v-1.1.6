@@ -10,6 +10,7 @@ from .secret import (
     DATABASE_PASSWORD,
     DATABASE_SERVER,
     DATABASE_USERNAME,
+    IS_ASYNC_ENV
 )
 from sqlalchemy.ext.declarative import declarative_base
 database = DatabaseManager(
@@ -20,15 +21,13 @@ database = DatabaseManager(
     database_async_connector=DATABASE_ASYNC_CONNECTOR,
     database_name=DATABASE_NAME,
     database_server=DATABASE_SERVER,
+    is_async_env= IS_ASYNC_ENV
 )
 
-session_manager: Optional[SessionManager] = None
 try:
     database.create_database_if_not_exists()
 finally:
     Base = declarative_base()
-    session_manager = database.create_session_maker()
-    database.session_manager = session_manager
+    database.create_session_manager()
     database.base=Base
-
-
+    database.create_tables()

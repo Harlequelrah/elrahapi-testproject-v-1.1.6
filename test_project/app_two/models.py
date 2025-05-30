@@ -9,13 +9,13 @@ from sqlalchemy import (
     ForeignKey,
     Table,
 )
-from ..settings.database import Base
+from ..settings.database import database
 
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 
 from ..app_three.models import post_tag_table
-class Post(Base):
+class Post(database.base):
     __tablename__ = 'posts'
     id = Column(Integer, primary_key=True)
     title=Column(String(30),nullable=True)
@@ -23,4 +23,5 @@ class Post(Base):
     user=relationship("User",back_populates="posts",lazy="joined")
     tags=relationship("Tag",secondary=post_tag_table,back_populates="posts", lazy="joined")
 
-metadata= Base.metadata
+metadata = database.base.metadata
+database.target_metadata = metadata
