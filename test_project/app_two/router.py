@@ -15,7 +15,6 @@ from ..settings.auth.configs import authentication
 from ..settings.auth.cruds import user_crud
 from .models import post_tag_table
 from .cruds import myapp_crud
-from ..settings.database import session_manager
 user_relation: Relationship = Relationship(
     relationship_name="user",
     second_entity_crud=user_crud,
@@ -37,7 +36,6 @@ router_provider = CustomRouterProvider(
     prefix="/posts",
     tags=["posts"],
     crud=myapp_crud,
-    session_manager=session_manager,
     # authentication=authentication,
     read_with_relations=False,
     relations=[user_relation, tag_relation],

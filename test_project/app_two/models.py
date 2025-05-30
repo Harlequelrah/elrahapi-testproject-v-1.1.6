@@ -20,7 +20,7 @@ class Post(Base):
     id = Column(Integer, primary_key=True)
     title=Column(String(30),nullable=True)
     user_id=Column(Integer,ForeignKey('users.id'))
-    user=relationship("User",back_populates="posts")
-    tags=relationship("Tag",secondary=post_tag_table,back_populates="posts")
+    user=relationship("User",back_populates="posts",lazy="joined")
+    tags=relationship("Tag",secondary=post_tag_table,back_populates="posts", lazy="joined")
 
 metadata= Base.metadata

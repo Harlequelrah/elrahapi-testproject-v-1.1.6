@@ -17,10 +17,10 @@ from sqlalchemy.orm import relationship
 class User( UserModel,Base):
     __tablename__ = "users"
     profile_id=Column(Integer,ForeignKey('profiles.id'),unique=True)
-    profile=relationship("Profile",back_populates="user",uselist=False)
+    profile=relationship("Profile",back_populates="user",uselist=False,lazy="joined")
     user_privileges = relationship("UserPrivilege", back_populates="user",lazy="joined")
     user_roles=relationship("UserRole",back_populates="user",lazy="joined")
-    posts=relationship("Post",back_populates="user")
+    posts=relationship("Post",back_populates="user",lazy="joined")
 
 class Role(RoleModel,Base):
     __tablename__ = "roles"
