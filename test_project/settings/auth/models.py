@@ -1,4 +1,3 @@
-
 from elrahapi.authorization.role.models import RoleModel
 
 from elrahapi.authorization.role_privilege.models import RolePrivilegeModel
@@ -46,8 +45,10 @@ class Privilege(PrivilegeModel,database.base):
 
 class UserPrivilege(UserPrivilegeModel,database.base):
     __tablename__ = "user_privileges"
-    user = relationship("User", back_populates="user_privileges")
-    privilege = relationship("Privilege", back_populates="privilege_users")
+    user = relationship("User", back_populates="user_privileges", lazy="joined")
+    privilege = relationship(
+        "Privilege", back_populates="privilege_users", lazy="joined"
+    )
 
 class UserRole(UserRoleModel,database.base):
     __tablename__ = "user_roles"
